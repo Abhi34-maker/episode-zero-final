@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Episode Zero</title>
+<meta name="description" content="A story starter for new writers: tap ready-made answers and get a concept, outline, loose ends, an episode-one plan and a seven-day roadmap.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Inter:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Layout: one friendly column under a six-step rail. One brand accent drives every coloured surface, so a single hex swap re-themes the page. */
+:root{
+  --brand:#E51B4D; /* Sampled from the Pocket FM logo supplied by the author. Everything else derives from it. */
+  --on-brand:#FFFFFF;
+  --paper:#F6F4F8; --raised:#FFFFFF; --ink:#1F1A26; --muted:#665E73; --line:#E3DCEA;
+  --brand-ink:color-mix(in srgb,var(--brand) 78%,#000);
+  --brand-soft:color-mix(in srgb,var(--brand) 9%,var(--raised));
+  --brand-line:color-mix(in srgb,var(--brand) 40%,var(--raised));
+  --ok:#17703F; --ok-soft:#DDF1E5;
+  --shadow:0 1px 2px rgba(31,26,38,.06),0 10px 28px rgba(31,26,38,.07);
+  --font-display:'Nunito','Inter',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-script:'Courier Prime','Courier New',Courier,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141018; --raised:#1E1925; --ink:#F1EDF6; --muted:#A79FB5; --line:#352D40;
+    --brand-ink:color-mix(in srgb,var(--brand) 55%,#fff);
+    --ok:#62D294; --ok-soft:#16301F; --shadow:0 1px 2px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141018; --raised:#1E1925; --ink:#F1EDF6; --muted:#A79FB5; --line:#352D40;
+  --brand-ink:color-mix(in srgb,var(--brand) 55%,#fff);
+  --ok:#62D294; --ok-soft:#16301F; --shadow:0 1px 2px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--font-display);line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:44px;font-weight:800;letter-spacing:-.015em}
+h2{font-size:27px;font-weight:800}
+h3{font-size:19px;font-weight:800}
+h2:focus{outline:none}
+p{margin:0}
+.eyebrow{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-ink);font-weight:700}
+.lede{max-width:56ch;margin-top:12px;font-size:18px}
+.note{margin-top:12px;font-size:13px;color:var(--muted);max-width:64ch}
+.top{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;margin-bottom:26px}
+.top-text{flex:1 1 380px;min-width:0}
+.wave{flex:0 1 200px;width:200px;max-width:100%;height:60px;color:var(--brand)}
+.wave rect{fill:currentColor;transform-box:fill-box;transform-origin:50% 50%;animation:eq 1.8s ease-in-out infinite}
+@keyframes eq{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){.wave rect{animation:none}}
+
+.steps-scroll{overflow-x:auto;margin-bottom:22px;padding:2px 2px 8px}
+.steps{list-style:none;margin:0;padding:0;display:flex;gap:8px;min-width:max-content}
+.step{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border:1px solid var(--line);background:var(--raised);color:var(--ink);border-radius:999px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.step .num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--paper);border:1px solid var(--line);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.step.on{border-color:var(--brand);background:var(--brand-soft)}
+.step.on .num{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.step.locked,.step:disabled{opacity:.5;cursor:not-allowed}
+
+.card{background:var(--raised);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.stack{display:flex;flex-direction:column;gap:18px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.hint{color:var(--muted);margin-top:6px}
+.view{display:flex;flex-direction:column;gap:20px}
+
+.btn{font:inherit;font-weight:700;font-size:16px;padding:12px 24px;border-radius:999px;border:2px solid var(--brand);background:var(--brand);color:var(--on-brand);cursor:pointer;box-shadow:0 4px 14px color-mix(in srgb,var(--brand) 28%,transparent)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--brand-ink);box-shadow:none}
+.btn.quiet{background:transparent;color:var(--ink);border-color:var(--line);box-shadow:none}
+button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible,.opt:focus-within,.check:focus-within{outline:3px solid color-mix(in srgb,var(--brand) 55%,transparent);outline-offset:2px}
+
+label,.lbl{font-weight:700;font-size:15px}
+.optional{font-weight:500;color:var(--muted)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
+textarea{resize:vertical;min-height:88px}
+input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
+input[type=text]:focus,textarea:focus{border-color:var(--brand)}
+.in{display:flex;flex-direction:column;gap:6px}
+
+.how{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.how li{counter-increment:how;display:flex;align-items:center;gap:10px;background:var(--brand-soft);border-radius:999px;padding:8px 16px 8px 8px;font-weight:600;font-size:15px}
+.how li::before{content:counter(how);display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-size:13px;font-weight:800}
+.how{counter-reset:how}
+
+.seg{display:flex;gap:6px;margin-bottom:18px}
+.seg .s{flex:1;height:8px;border-radius:999px;background:var(--line)}
+.seg .s.done{background:color-mix(in srgb,var(--brand) 45%,var(--line))}
+.seg .s.cur{background:var(--brand)}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand-ink)}
+.notice{display:flex;gap:12px;align-items:flex-start;background:var(--brand-soft);border:1.5px solid var(--brand-line);border-radius:16px;padding:14px 16px;font-size:15px}
+.notice .ico{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-family:var(--font-display);font-weight:800;font-size:14px;margin-top:1px}
+.notice b{color:var(--brand-ink)}
+.instruction{display:flex;gap:10px;align-items:flex-start;background:var(--brand-soft);border-radius:14px;padding:12px 14px;font-size:15px;margin:16px 0 4px}
+.instruction b{color:var(--brand-ink)}
+.opts{display:grid;gap:12px;margin:16px 0 22px}
+.opt{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:2px solid var(--line);border-radius:16px;background:var(--raised);cursor:pointer}
+.opt:hover{border-color:var(--brand-line)}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt .dotr{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);margin-top:2px;display:grid;place-items:center;background:var(--raised)}
+.opt.sel .dotr{border-color:var(--brand)}
+.opt.sel .dotr::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.opt .txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.opt .txt b{font-family:var(--font-display);font-size:18px;font-weight:800}
+.opt .txt span{color:var(--muted);font-size:15px}
+
+.recap{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid var(--brand-line);background:var(--brand-soft);color:var(--brand-ink);cursor:pointer}
+.chip:hover{border-color:var(--brand)}
+.titlepage{font-family:var(--font-script);text-align:center;background:var(--raised);border:1px solid var(--line);border-radius:20px;padding:48px 24px 40px;display:flex;flex-direction:column;gap:12px;align-items:center;box-shadow:var(--shadow)}
+.titlepage .tp-title{font-family:var(--font-script);font-weight:700;font-size:30px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:12px;border-bottom:3px solid var(--brand)}
+.titlepage .tp-sub{font-size:14px;color:var(--muted)}
+.titlepage .tp-you{font-size:18px;font-weight:700}
+.fields{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:640px){.fields{grid-template-columns:minmax(0,1fr)}h1{font-size:36px}}
+.fields div{background:var(--raised);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.fields dt{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--brand-ink);font-weight:800}
+.fields dd{margin:4px 0 0}
+.yours{background:var(--brand-soft);border-radius:16px;padding:14px 16px}
+.acts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:act}
+.acts li{counter-increment:act;background:var(--raised);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.acts .act-name::before{content:"Act " counter(act);display:inline-block;margin-right:10px;font-family:var(--font-body);font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand-ink);vertical-align:2px}
+.acts .turn{color:var(--muted);font-size:15px}
+
+.loose{display:flex;flex-direction:column;gap:12px}
+.loose.answered{border-color:color-mix(in srgb,var(--ok) 55%,var(--line))}
+.loose .head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.pill{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap;background:var(--brand-soft);color:var(--brand-ink)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.checks{display:flex;flex-direction:column;gap:10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border:1.5px solid var(--line);border-radius:14px;background:var(--raised);cursor:pointer}
+.check input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--brand);flex:none}
+.beats{display:grid;gap:14px}
+.tips{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.days{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.days li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;background:var(--raised);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+@media (max-width:520px){.days li{grid-template-columns:minmax(0,1fr);gap:6px}}
+.days .d{font-family:var(--font-display);font-weight:800;color:var(--brand-ink)}
+.days .out{margin-top:6px;color:var(--muted);font-size:15px}
+pre.brief{white-space:pre-wrap;word-break:break-word;margin:0;font-family:var(--font-script);font-size:14px;line-height:1.55;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:16px;max-height:440px;overflow:auto}
+details{margin-top:32px;border-top:1px solid var(--line);padding-top:16px}
+summary{cursor:pointer;font-weight:700}
+details .stack{margin-top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="top-text">
+      <p class="eyebrow">A story starter for new writers</p>
+      <h1>Episode Zero</h1>
+      <p class="lede">No blank page. Tap the answers that feel closest to your story and leave with a concept, an outline, the loose ends to tie up and a plan for this week.</p>
+      <p class="note">Independent prototype made for a Pocket FM application. It is not an official Pocket FM product. Built with Claude, but not connected to Claude or any AI.</p>
+    </div>
+    <svg id="wave" class="wave" viewBox="0 0 200 60" aria-hidden="true" focusable="false"></svg>
+  </header>
+
+  <nav aria-label="Progress" class="steps-scroll"><ol class="steps" id="steps"></ol></nav>
+
+  <main>
+    <section id="v-start" class="view">
+      <div class="card stack">
+        <div class="notice" role="note"><span class="ico" aria-hidden="true">i</span><p><b>Please read first.</b> This prototype was built with Claude, but it is not connected to Claude or any other AI. Everything you see is pre-written, so please choose from the ready-made answers.</p></div>
+        <div>
+          <h2>Let's find your story</h2>
+          <p class="hint">You do not need a finished idea. You will answer five quick questions by tapping the option that feels closest. There are no wrong answers, and you can change any of them later.</p>
+        </div>
+        <ol class="how">
+          <li>Tap your answers</li>
+          <li>Read your concept</li>
+          <li>Follow your plan</li>
+        </ol>
+        <div class="in">
+          <label for="title">Working title <span class="optional">(optional)</span></label>
+          <input id="title" type="text" maxlength="60" placeholder="Untitled story" autocomplete="off">
+        </div>
+        <div class="in">
+          <label for="idea">Your idea in a sentence <span class="optional">(optional)</span></label>
+          <textarea id="idea" maxlength="300" rows="3" placeholder="For example: a woman inherits her grandmother's house and finds a radio that still plays."></textarea>
+        </div>
+        <div class="row"><button class="btn" id="goBtn" type="button">Let's go</button></div>
+      </div>
+    </section>
+
+    <section id="v-ask" class="view" hidden></section>
+    <section id="v-concept" class="view" hidden></section>
+    <section id="v-loose" class="view" hidden></section>
+    <section id="v-opening" class="view" hidden></section>
+    <section id="v-roadmap" class="view" hidden></section>
+  </main>
+
+  <details>
+    <summary>About this prototype</summary>
+    <div class="stack small">
+      <p><b>The problem.</b> A new writer often has a spark but does not know the genre, how to structure a long story, how to build a hero or how to open episode one. Many stop before they draft anything.</p>
+      <p><b>How it works.</b> You choose from ready-made answers. The concept, outline, loose ends, episode-one notes and roadmap are assembled from advice written in advance. There is no AI running in this page, so the same choices always give the same result.</p>
+      <p><b>Hypothesis.</b> Writers who reach a clear concept in one sitting are more likely to draft episode one within seven days. The measure would be the share of new writers who go from idea to first-episode draft in seven days. This has not been tested with real writers.</p>
+      <p><b>Limits.</b> The advice is general craft guidance, not a judgement of your story. Your notes stay on this page and are not saved, so copy your brief before you leave.</p>
+      <p><b>Built with.</b> Claude drafted the content and code, and the author edited them. The page itself is not connected to Claude or any AI.</p>
+    </div>
+  </details>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STEPS = [["start", "Start"], ["ask", "Your answers"], ["concept", "Concept"], ["loose", "Loose ends"], ["opening", "Episode one"], ["roadmap", "Roadmap"]];
+
+  var QUESTIONS = [
+    { id: "genre", topic: "Feeling", q: "What feeling do you want your listeners to have?", why: "A genre is a promise to the listener. Pick the feeling and the rest gets easier.",
+      options: [
+        { id: "romance", label: "Warm and tense", example: "Romance. Two people who should not fall for each other, and do." },
+        { id: "mystery", label: "Gripping and curious", example: "Mystery or thriller. A question that gets bigger with every episode." },
+        { id: "fantasy", label: "Wonder and danger", example: "Fantasy. A world with rules the hero has to learn the hard way." },
+        { id: "drama", label: "Fiery and emotional", example: "Family drama or revenge. Secrets, betrayal and a reckoning." },
+        { id: "spooky", label: "Creepy and thrilling", example: "Supernatural or horror. Something is wrong, and it is getting closer." }
+      ] },
+    { id: "listener", topic: "Listener", q: "Who do you picture listening?", why: "Knowing your listener helps you decide how to open and how much to explain.",
+      options: [
+        { id: "commute", label: "People on the move", example: "On a commute, a walk or a break. They may get interrupted." },
+        { id: "night", label: "Night-time listeners", example: "Winding down in bed and ready to be pulled in." },
+        { id: "binge", label: "Weekend bingers", example: "Settled in and wanting a story they can sink into." }
+      ] },
+    { id: "hero", topic: "Hero", q: "Who is your main character?", why: "Listeners stay for a person, not a plot.",
+      options: [
+        { id: "grieving", label: "Someone carrying a loss", example: "A widow, an orphan, a friend who lost someone." },
+        { id: "underestimated", label: "Someone everyone underestimates", example: "The quiet one, the newcomer, the youngest sibling." },
+        { id: "secret", label: "Someone with a secret", example: "A person hiding who they were or what they did." },
+        { id: "restart", label: "Someone starting over", example: "A person who moves away to leave something behind." }
+      ] },
+    { id: "obstacle", topic: "Conflict", q: "What stands in their way?", why: "A story needs something pushing back, or nothing happens.",
+      options: [
+        { id: "hidden", label: "Someone hiding the truth", example: "A relative, partner or friend who knows more than they say." },
+        { id: "deadline", label: "A deadline that cannot move", example: "A wedding, a trial, a handover, a storm." },
+        { id: "past", label: "Their own past", example: "An old mistake or an old love that returns." },
+        { id: "rival", label: "A rival with a stronger claim", example: "Someone with more power who wants the same thing." }
+      ] },
+    { id: "hook", topic: "Hook", q: "How should episode one end?", why: "The last moment of episode one decides whether a listener presses next.",
+      options: [
+        { id: "reveal", label: "A reveal", example: "A fact that changes how the opening scene looks." },
+        { id: "threat", label: "A threat", example: "Danger arrives and the hero is not ready." },
+        { id: "choice", label: "A hard choice", example: "The moment before the hero decides, with both options costly." },
+        { id: "message", label: "A mysterious message", example: "A call, a letter or a sign that only makes sense if you keep listening." }
+      ] }
+  ];
+
+  var GENRE = {
+    romance: { name: "Romance", frame: "In a slow-burn romance", promise: "Two people who should not work, and the pull between them.", acts: ["The meeting", "The spark", "The break", "The choice"], tone: "Make the first scene about attraction and tension, even if the two people are arguing.", check: "The first scene shows the pull between two people." },
+    mystery: { name: "Mystery and thriller", frame: "In a mystery", promise: "A question that grows with every episode.", acts: ["The first clue", "The widening", "The twist", "The answer"], tone: "Raise the central question in the first scene and make it personal to the hero.", check: "The first scene raises the central question." },
+    fantasy: { name: "Fantasy", frame: "In a world with rules they have yet to learn", promise: "A world with rules the hero must learn the hard way.", acts: ["The call", "The first cost", "The turning point", "The test"], tone: "Show one rule of your world in action early, so listeners learn it through the hero.", check: "The first scene shows one rule of your world." },
+    drama: { name: "Family drama and revenge", frame: "In a story of family secrets and betrayal", promise: "Secrets, betrayal and a reckoning.", acts: ["The crack", "The fallout", "The exposure", "The reckoning"], tone: "Put the hero in a room with the person who matters most, and let something go unsaid.", check: "The first scene shows tension between people who matter to each other." },
+    spooky: { name: "Supernatural and horror", frame: "In a supernatural story", promise: "Something is wrong, and it is getting closer.", acts: ["The first sign", "The closing in", "The truth", "The stand"], tone: "Use sound. Let the listener hear the wrong thing before the hero understands it.", check: "The first scene has something that feels wrong." }
+  };
+  var LISTENER = {
+    commute: { label: "People on the move", tip: "Say who the hero is and where they are early, and repeat the key fact once. Listeners on the move can miss a line." },
+    night: { label: "Night-time listeners", tip: "You can let the mood build, but still raise a question early so listeners stay awake for the answer." },
+    binge: { label: "Weekend bingers", tip: "You can plant longer mysteries, but give each episode its own small question too." }
+  };
+  var HERO = {
+    grieving: { label: "Someone carrying a loss", who: "a grieving person", want: "to get through the days without feeling the loss", flaw: "Avoids anything that makes the pain real.", gap: { title: "Who did they lose?", q: "Who did your hero lose, and what did that person want for them?", hint: "The answer shapes what your hero is afraid to feel." } },
+    underestimated: { label: "Someone everyone underestimates", who: "an underestimated outsider", want: "to be taken seriously", flaw: "Hides what they can do until it is nearly too late.", gap: { title: "What can they do that nobody sees?", q: "What is your hero actually good at, and when does it first show?", hint: "Plant a small moment of skill early so the payoff feels earned." } },
+    secret: { label: "Someone with a secret", who: "someone with a secret", want: "to keep the secret safe and still be loved", flaw: "Tells half-truths, even to people who would help.", gap: { title: "Who could find out first?", q: "Who is closest to discovering the secret, and why have they not yet?", hint: "A secret only creates tension when someone could expose it." } },
+    restart: { label: "Someone starting over", who: "someone starting over", want: "a clean start where no one knows them", flaw: "Runs the moment things get close.", gap: { title: "What are they running from?", q: "What exactly did your hero leave behind, and what do they miss?", hint: "Decide this now, even if you reveal it slowly." } }
+  };
+  var OBSTACLE = {
+    hidden: { but: "someone close to them is hiding the truth", opposing: "A person close to the hero who is hiding something that changes everything.", stakes: "The hero's trust in the people around them.", runs: "Each episode can peel back one layer of the secret while a bigger one builds.", act3: "The hidden truth comes out, and the hero has to rethink who they can trust.", act4: "The hero confronts the person who hid the truth, with what they now know.", gap: { title: "Why can't the truth just be said?", q: "What stops the person from simply explaining in the first scene?", hint: "Give them a strong reason, such as fear, a promise or a threat." } },
+    deadline: { but: "a fixed deadline is closing in", opposing: "A date the hero cannot move, after which they lose what they want.", stakes: "Everything the hero has built toward that date.", runs: "Each episode can cost the hero time, then reset the clock with a new complication.", act3: "The deadline moves closer or the rules change, and the hero's plan stops working.", act4: "The deadline arrives, and the hero acts with what they have learned.", gap: { title: "What happens if the deadline passes?", q: "What does the hero lose, and who else is hurt?", hint: "If the honest answer is \"not much\", raise the cost." } },
+    past: { but: "their own past is catching up", opposing: "A past choice that comes back at the worst possible time.", stakes: "Who the hero believes they are.", runs: "Each episode can bring back one more piece of the past and change what the hero thinks they know.", act3: "The hero learns what really happened in the past, and it is not what they believed.", act4: "The hero faces their past directly and decides what it means for who they are.", gap: { title: "What exactly happened?", q: "Describe the past event in one sentence, and decide when listeners learn it.", hint: "Knowing it yourself lets you hint at it without confusing anyone." } },
+    rival: { but: "a rival with a stronger claim stands in the way", opposing: "Someone with more power or a stronger claim to the same goal.", stakes: "The thing both of them want, and the hero's place in the world.", runs: "Each episode can escalate the contest, with each side gaining and losing ground.", act3: "The rival makes a move that costs the hero something they cannot get back.", act4: "The hero faces the rival with a new approach built from everything they have lost and learned.", gap: { title: "Why can't they compromise?", q: "What stops the hero and the rival from meeting in the middle?", hint: "Give each side a reason they cannot back down." } }
+  };
+  var HOOK = {
+    reveal: { label: "A reveal", job: "Leave the listener with a fact that changes how the opening scene looks.", tip: "Plant a small detail in the first scene that the reveal will recolour.", check: "The last moment lands the reveal.", beat: "How does it end on a reveal?", gap: { title: "What does the reveal change?", q: "Which earlier moment looks different once the reveal lands?", hint: "Plant that moment in the first scene, even if listeners will not notice it yet." } },
+    threat: { label: "A threat", job: "Leave the listener afraid for the hero.", tip: "Show the hero unprepared before the threat arrives, so the danger feels earned.", check: "The last moment shows the threat arriving.", beat: "How does it end on a threat?", gap: { title: "Why is the hero unprepared?", q: "What does the hero not know or not have when the threat arrives?", hint: "Danger lands harder when listeners have seen what the hero is missing." } },
+    choice: { label: "A hard choice", job: "Leave the listener at the edge of a decision where both options cost something.", tip: "Make sure both choices cost something the listener cares about.", check: "The last moment puts the hero at the edge of the choice.", beat: "How does it end on a hard choice?", gap: { title: "What does each choice cost?", q: "What does the hero lose with each option?", hint: "If one option is clearly better, the moment loses its tension." } },
+    message: { label: "A mysterious message", job: "Leave the listener with a question they cannot answer yet.", tip: "Keep the message short and specific, so listeners can repeat it.", check: "The last moment delivers the message.", beat: "How does it end on a message?", gap: { title: "Who sent it, and why now?", q: "Who is behind the message, and what changed to make them send it now?", hint: "You do not have to tell listeners yet, but you need to know." } }
+  };
+
+  var state = { view: "start", qi: 0, ans: {}, started: false, built: false, title: "", idea: "", logline: null, actNotes: ["", "", "", ""], gapAns: {}, gapDone: {}, checks: {}, beats: ["", "", "", ""], eraseArmed: false };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var cap = function (t) { return t.charAt(0).toUpperCase() + t.slice(1); };
+  function h(tag, props) {
+    var e = document.createElement(tag);
+    if (props) Object.keys(props).forEach(function (k) {
+      var v = props[k];
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.slice(0, 2) === "on") e.addEventListener(k.slice(2), v);
+      else if (v === true) e.setAttribute(k, "");
+      else e.setAttribute(k, String(v));
+    });
+    for (var i = 2; i < arguments.length; i++) {
+      var kid = arguments[i];
+      if (Array.isArray(kid)) kid.forEach(function (x) { if (x != null && x !== false) e.append(x); });
+      else if (kid != null && kid !== false) e.append(kid);
+    }
+    return e;
+  }
+
+  function d() {
+    var a = state.ans;
+    return { g: GENRE[a.genre], l: LISTENER[a.listener], hr: HERO[a.hero], ob: OBSTACLE[a.obstacle], hk: HOOK[a.hook] };
+  }
+  function starterLogline(x) { return x.g.frame + ", " + x.hr.who + " wants " + x.hr.want + ", but " + x.ob.but + "."; }
+  function loglineNow(x) { return state.logline == null ? starterLogline(x) : state.logline; }
+  function actsFor(x) {
+    return [
+      { name: x.g.acts[0], beat: "Show " + x.hr.who + " wanting " + x.hr.want + ". Plant the first sign that " + x.ob.but + ".", turn: "Close on a moment the hero cannot undo." },
+      { name: x.g.acts[1], beat: "The pressure builds. Each episode should cost the hero something, and their flaw makes it worse.", turn: "Something the hero relied on falls away." },
+      { name: x.g.acts[2], beat: x.ob.act3, turn: "What the hero wants and what the hero needs point in opposite directions." },
+      { name: x.g.acts[3], beat: x.ob.act4, turn: "A choice that shows who the hero has become and leaves a door open for what comes next." }
+    ];
+  }
+  function looseEnds(x) {
+    return [
+      { title: "Why does the story start now?", q: "What changed that makes this the day the story begins?", hint: "A story that could have started a year ago will feel slow. Find the trigger." },
+      x.hr.gap, x.ob.gap, x.hk.gap,
+      { title: "What does your hero choose?", q: "At the end of each act, what does your hero decide to do, rather than just endure?", hint: "Listeners follow people who act. Bad luck can start a story, but choices carry it." }
+    ];
+  }
+  function checklist(x) {
+    return ["Your hero wants something in the first scene.", "Something is at risk right away.", x.g.check, "A question is raised that listeners want answered.", x.hk.check];
+  }
+  function beatLabels(x) {
+    return [["Opening image", "What do we see and hear first?"], ["The problem", "What does your hero want, and what is in the way?"], ["The surprise", "What happens that they did not expect?"], ["The closing moment", x.hk.beat]];
+  }
+  function roadmap(x) {
+    return [
+      ["Confirm your concept", "Read your concept page and edit the logline so it sounds like your story, with real names and places.", "A logline in your own words"],
+      ["Answer your biggest loose end", "Pick the loose end that worries you most and write the answer in one paragraph.", "One paragraph you will rely on"],
+      ["Get to know your hero", "Write five lines about what your hero does when nobody is watching.", "Five lines that show their flaw"],
+      ["Plan episode one in four beats", "Fill in the four beats: opening image, the problem, the surprise and the closing moment.", "A four-line plan"],
+      ["Draft the opening scene", "Write the first scene without stopping to edit. Aim to end the episode on " + x.hk.label.toLowerCase() + ".", "A rough first scene"],
+      ["Finish the draft and read it aloud", "Finish the episode, then read it out loud once and mark where you stumble.", "A full draft with the stumbles marked"],
+      ["Revise and decide", "Fix the marked spots, run the episode-one checklist again and decide who reads it first.", "A first episode ready for feedback"]
+    ];
+  }
+
+  /* ---------- navigation ---------- */
+  function available(id) {
+    if (id === "start") return true;
+    if (id === "ask") return state.started;
+    return state.built;
+  }
+  function focusHeading(root) {
+    var hd = root.querySelector("h2");
+    if (hd) { hd.setAttribute("tabindex", "-1"); hd.focus({ preventScroll: true }); }
+  }
+  function show(view) {
+    state.view = view;
+    STEPS.forEach(function (st) { $("v-" + st[0]).hidden = st[0] !== view; });
+    renderNav();
+    ({ ask: renderAsk, concept: renderConcept, loose: renderLoose, opening: renderOpening, roadmap: renderRoadmap }[view] || function () {})();
+    focusHeading($("v-" + view));
+    window.scrollTo(0, 0);
+  }
+  function renderNav() {
+    var ol = $("steps"); ol.replaceChildren();
+    STEPS.forEach(function (st, i) {
+      var id = st[0], ok = available(id), on = state.view === id;
+      ol.append(h("li", null, h("button", { type: "button", class: "step" + (on ? " on" : "") + (ok ? "" : " locked"), disabled: !ok, "aria-current": on ? "step" : null, onclick: function () { show(id); } },
+        h("span", { class: "num" }, String(i + 1)), st[1])));
+    });
+  }
+
+  /* ---------- views ---------- */
+  function renderAsk() {
+    var root = $("v-ask"); root.replaceChildren();
+    var q = QUESTIONS[state.qi], cur = state.ans[q.id], last = state.qi === QUESTIONS.length - 1;
+    var next, labels = [];
+    var group = h("div", { class: "opts", role: "radiogroup", "aria-labelledby": "qtitle" });
+    q.options.forEach(function (o) {
+      var inp = h("input", { type: "radio", name: "q-" + q.id, value: o.id, checked: cur === o.id });
+      var lab = h("label", { class: "opt" + (cur === o.id ? " sel" : "") }, inp, h("span", { class: "dotr", "aria-hidden": "true" }), h("span", { class: "txt" }, h("b", null, o.label), h("span", null, o.example)));
+      inp.addEventListener("change", function () {
+        state.ans[q.id] = o.id;
+        labels.forEach(function (l) { l.classList.remove("sel"); });
+        lab.classList.add("sel");
+        next.disabled = false;
+      });
+      labels.push(lab); group.append(lab);
+    });
+    next = h("button", { class: "btn", type: "button", disabled: !cur, onclick: function () {
+      if (!state.ans[q.id]) return;
+      if (last) { state.built = true; show("concept"); return; }
+      state.qi++; renderAsk(); focusHeading(root); window.scrollTo(0, 0);
+    } }, last ? "Build my concept" : "Next");
+    var back = h("button", { class: "btn quiet", type: "button", onclick: function () {
+      if (state.qi === 0) { show("start"); return; }
+      state.qi--; renderAsk(); focusHeading(root); window.scrollTo(0, 0);
+    } }, "Back");
+    root.append(h("div", { class: "card" },
+      h("div", { class: "seg", "aria-hidden": "true" }, QUESTIONS.map(function (_, i) { return h("span", { class: "s" + (i < state.qi ? " done" : i === state.qi ? " cur" : "") }); })),
+      h("p", { class: "small muted", style: "margin-bottom:8px" }, "Question " + (state.qi + 1) + " of " + QUESTIONS.length),
+      h("span", { class: "tag" }, q.topic),
+      h("h2", { id: "qtitle", style: "margin-top:10px" }, q.q),
+      h("p", { class: "hint" }, q.why),
+      h("div", { class: "instruction" }, h("span", null, h("b", null, "Choose one. "), "These are ready-made answers, because this page is not connected to Claude or any AI. Tap the option that feels closest to your story. You can change it any time.")),
+      group,
+      h("div", { class: "row" }, back, next, state.built ? h("button", { class: "btn ghost", type: "button", onclick: function () { show("concept"); } }, "Back to my concept") : null)));
+  }
+
+  function field(dt, dd) { return h("div", null, h("dt", null, dt), h("dd", null, dd)); }
+  function renderConcept() {
+    var root = $("v-concept"); root.replaceChildren();
+    var x = d();
+    root.append(h("div", null, h("h2", null, "Here is your story so far"), h("p", { class: "hint" }, "Built from your answers. Make it yours by editing the logline and adding notes to each act. Your notes are not saved, so copy your brief at the end.")));
+    root.append(h("div", { class: "recap" }, QUESTIONS.map(function (q, i) {
+      var opt = q.options.filter(function (o) { return o.id === state.ans[q.id]; })[0];
+      return h("button", { class: "chip", type: "button", title: "Change this answer", onclick: function () { state.qi = i; show("ask"); } }, q.topic + ": " + (opt ? opt.label : ""));
+    })));
+    root.append(h("div", { class: "titlepage" },
+      h("p", { class: "tp-sub" }, "working title"),
+      h("p", { class: "tp-title" }, state.title.trim() || "Untitled story"),
+      h("p", { class: "tp-sub" }, "a serialized audio story"),
+      h("p", { class: "tp-sub", style: "margin-top:8px" }, "written by"),
+      h("p", { class: "tp-you" }, "You")));
+    if (state.idea.trim()) root.append(h("div", { class: "yours" }, h("p", { class: "small muted" }, "Your idea, in your words"), h("p", null, state.idea.trim())));
+    var ll = h("textarea", { id: "logline", rows: "3", "aria-label": "Your logline" });
+    ll.value = loglineNow(x);
+    ll.addEventListener("input", function () { state.logline = ll.value; });
+    root.append(h("div", { class: "card stack" }, h("div", null, h("h3", null, "Your logline"), h("p", { class: "hint" }, "A starter sentence built from your answers. Replace the general words with names, places and details that only your story has.")), ll,
+      h("div", { class: "row" }, h("button", { class: "btn quiet", type: "button", onclick: function () { state.logline = null; ll.value = starterLogline(x); } }, "Reset to the starter"))));
+    root.append(h("dl", { class: "fields" },
+      field("What listeners are promised", x.g.promise), field("Your listener", x.l.label),
+      field("Your hero", cap(x.hr.who) + ". Wants " + x.hr.want + "."), field("Their flaw", x.hr.flaw),
+      field("What stands in the way", x.ob.opposing), field("What is at stake", x.ob.stakes),
+      field("How episode one ends", x.hk.label + ". " + x.hk.job), field("Why it can keep going", x.ob.runs)));
+    root.append(h("h3", null, "Your season in four acts"));
+    root.append(h("p", { class: "hint", style: "margin-top:-12px" }, "A shape to fill in, not a script. Add what happens in your story under each act."));
+    var acts = actsFor(x);
+    root.append(h("ol", { class: "acts" }, acts.map(function (a, i) {
+      var ta = h("textarea", { rows: "2", "aria-label": "Your notes for " + a.name, placeholder: "In your story, what happens here?" });
+      ta.value = state.actNotes[i];
+      ta.addEventListener("input", function () { state.actNotes[i] = ta.value; });
+      return h("li", null, h("h3", { class: "act-name" }, a.name), h("p", null, a.beat), h("p", { class: "turn" }, "Closes on: " + a.turn), ta);
+    })));
+    root.append(h("div", { class: "card" }, h("h3", null, "Where it ends"), h("p", { style: "margin-top:6px" }, "Decide whether your hero gets what they want, what they need, or both. That choice is your ending.")));
+    root.append(h("div", { class: "row" }, h("button", { class: "btn", type: "button", onclick: function () { show("loose"); } }, "Next: loose ends")));
+  }
+
+  function renderLoose() {
+    var root = $("v-loose"); root.replaceChildren();
+    var list = looseEnds(d());
+    var n = list.filter(function (g, i) { return state.gapDone[i]; }).length;
+    var count = h("p", { class: "small muted" }, n + " of " + list.length + " answered");
+    root.append(h("div", null, h("h2", null, "Loose ends to tie up"), h("p", { class: "hint" }, "Every story like yours has a few questions to settle before the writing gets easy. Answer what you can in a sentence or two. You can skip any that do not fit.")));
+    root.append(count);
+    list.forEach(function (g, i) {
+      var ta = h("textarea", { rows: "2", "aria-label": "Your answer to: " + g.title, placeholder: "Your answer…" });
+      ta.value = state.gapAns[i] || "";
+      ta.addEventListener("input", function () { state.gapAns[i] = ta.value; });
+      var pill = h("span", { class: "pill" + (state.gapDone[i] ? " ok" : "") }, state.gapDone[i] ? "Answered" : "Open");
+      var card = h("div", { class: "card loose" + (state.gapDone[i] ? " answered" : "") });
+      var btn = h("button", { class: "btn quiet", type: "button", "aria-pressed": state.gapDone[i] ? "true" : "false" }, state.gapDone[i] ? "Answered. Undo" : "Mark as answered");
+      btn.addEventListener("click", function () {
+        state.gapDone[i] = !state.gapDone[i];
+        var on = !!state.gapDone[i];
+        card.classList.toggle("answered", on); pill.classList.toggle("ok", on); pill.textContent = on ? "Answered" : "Open";
+        btn.textContent = on ? "Answered. Undo" : "Mark as answered"; btn.setAttribute("aria-pressed", on ? "true" : "false");
+        count.textContent = list.filter(function (_, k) { return state.gapDone[k]; }).length + " of " + list.length + " answered";
+      });
+      card.append(h("div", { class: "head" }, h("div", { class: "row" }, pill, h("h3", null, g.title)), btn), h("p", null, h("b", null, "Ask yourself: "), g.q), h("p", { class: "muted small" }, g.hint), ta);
+      root.append(card);
+    });
+    root.append(h("div", { class: "row" }, h("button", { class: "btn", type: "button", onclick: function () { show("opening"); } }, "Next: episode one")));
+  }
+
+  function renderOpening() {
+    var root = $("v-opening"); root.replaceChildren();
+    var x = d(), items = checklist(x);
+    root.append(h("div", null, h("h2", null, "Make episode one work"), h("p", { class: "hint" }, "Episode one has one job: " + x.hk.job.charAt(0).toLowerCase() + x.hk.job.slice(1))));
+    var cnt = h("p", { class: "small muted" });
+    var upd = function () { cnt.textContent = items.filter(function (_, i) { return state.checks[i]; }).length + " of " + items.length + " ticked"; };
+    upd();
+    root.append(h("h3", null, "Check your opening"), h("p", { class: "hint", style: "margin-top:-12px" }, "Once you have a draft, tick what is already true."), cnt);
+    root.append(h("div", { class: "checks" }, items.map(function (t, i) {
+      var cb = h("input", { type: "checkbox", checked: !!state.checks[i] });
+      cb.addEventListener("change", function () { state.checks[i] = cb.checked; upd(); });
+      return h("label", { class: "check" }, cb, h("span", null, t));
+    })));
+    root.append(h("h3", null, "Plan it in four beats"));
+    root.append(h("div", { class: "beats" }, beatLabels(x).map(function (b, i) {
+      var ta = h("textarea", { id: "beat" + i, rows: "2", placeholder: "Your answer…" });
+      ta.value = state.beats[i];
+      ta.addEventListener("input", function () { state.beats[i] = ta.value; });
+      return h("div", { class: "in" }, h("label", { for: "beat" + i }, b[0]), h("p", { class: "muted small" }, b[1]), ta);
+    })));
+    root.append(h("h3", null, "Three tips for your story"));
+    root.append(h("ul", { class: "tips" }, h("li", null, x.l.tip), h("li", null, x.g.tone), h("li", null, x.hk.tip)));
+    root.append(h("div", { class: "row" }, h("button", { class: "btn", type: "button", onclick: function () { show("roadmap"); } }, "Next: your roadmap")));
+  }
+
+  function buildBrief() {
+    var x = d(), L = [];
+    L.push("STORY BRIEF: " + (state.title.trim() || "Untitled story").toUpperCase(), "Made with Episode Zero", "");
+    if (state.idea.trim()) L.push("My idea: " + state.idea.trim());
+    L.push("Logline: " + loglineNow(x));
+    L.push("Genre promise: " + x.g.promise);
+    L.push("Listener: " + x.l.label);
+    L.push("Hero: " + cap(x.hr.who) + ". Wants " + x.hr.want + ". Flaw: " + x.hr.flaw);
+    L.push("What stands in the way: " + x.ob.opposing);
+    L.push("Stakes: " + x.ob.stakes);
+    L.push("Episode one ends on: " + x.hk.label.toLowerCase(), "", "OUTLINE");
+    actsFor(x).forEach(function (a, i) { L.push("Act " + (i + 1) + ", " + a.name + ": " + a.beat + (state.actNotes[i].trim() ? " My notes: " + state.actNotes[i].trim() : "")); });
+    L.push("", "LOOSE ENDS");
+    looseEnds(x).forEach(function (g, i) { L.push("- " + g.title + " " + (state.gapAns[i] && state.gapAns[i].trim() ? state.gapAns[i].trim() : "(still open)")); });
+    var filled = state.beats.some(function (b) { return b.trim(); });
+    if (filled) { L.push("", "EPISODE ONE BEATS"); beatLabels(x).forEach(function (b, i) { if (state.beats[i].trim()) L.push("- " + b[0] + ": " + state.beats[i].trim()); }); }
+    return L.join("\n");
+  }
+  function copyBrief(btn, pre) {
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy my story brief"; }, 2000); };
+    var fallback = function () {
+      try { var rg = document.createRange(); rg.selectNodeContents(pre); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg); } catch (_) {}
+      btn.textContent = "Selected. Press Ctrl+C or Cmd+C";
+    };
+    try { navigator.clipboard.writeText(pre.textContent).then(done, fallback); } catch (_) { fallback(); }
+  }
+  function startOver() {
+    state = { view: "start", qi: 0, ans: {}, started: false, built: false, title: "", idea: "", logline: null, actNotes: ["", "", "", ""], gapAns: {}, gapDone: {}, checks: {}, beats: ["", "", "", ""], eraseArmed: false };
+    $("title").value = ""; $("idea").value = "";
+    show("start");
+  }
+  function renderRoadmap() {
+    var root = $("v-roadmap"); root.replaceChildren();
+    var x = d();
+    root.append(h("div", null, h("h2", null, "Your seven-day roadmap"), h("p", { class: "hint" }, "One small task a day, ending with a finished first episode. Move things around to fit your week.")));
+    root.append(h("ol", { class: "days" }, roadmap(x).map(function (t, i) {
+      return h("li", null, h("div", { class: "d" }, "Day " + (i + 1)), h("div", null, h("h3", null, t[0]), h("p", { style: "margin-top:4px" }, t[1]), h("p", { class: "out" }, "You finish with: " + t[2])));
+    })));
+    var pre = h("pre", { class: "brief", tabindex: "0", "aria-label": "Your story brief" }, buildBrief());
+    var btn = h("button", { class: "btn", type: "button" }, "Copy my story brief");
+    btn.addEventListener("click", function () { copyBrief(btn, pre); });
+    var erase = h("button", { class: "btn quiet", type: "button" }, "Start over");
+    erase.addEventListener("click", function () {
+      if (!state.eraseArmed) { state.eraseArmed = true; erase.textContent = "Press again to erase your notes"; setTimeout(function () { state.eraseArmed = false; erase.textContent = "Start over"; }, 4000); return; }
+      startOver();
+    });
+    root.append(h("div", { class: "card stack" }, h("div", null, h("h3", null, "Take your brief with you"), h("p", { class: "hint" }, "A plain-text summary of everything you have written here. Paste it into any writing tool. Your notes are not saved on this page.")), pre, h("div", { class: "row" }, btn, erase)));
+  }
+
+  /* ---------- boot ---------- */
+  function boot() {
+    var svg = $("wave"), NS = "http://www.w3.org/2000/svg";
+    [10, 18, 28, 40, 26, 48, 34, 20, 44, 30, 16, 38, 52, 36, 22, 42, 28, 14, 34, 24].forEach(function (hh, i) {
+      var r = document.createElementNS(NS, "rect");
+      r.setAttribute("x", String(i * 10 + 1)); r.setAttribute("y", String((60 - hh) / 2)); r.setAttribute("width", "6"); r.setAttribute("height", String(hh)); r.setAttribute("rx", "3");
+      r.style.animationDelay = (i * 0.09) + "s"; r.style.opacity = String(0.4 + (i % 5) * 0.15);
+      svg.append(r);
+    });
+    $("title").addEventListener("input", function () { state.title = this.value; });
+    $("idea").addEventListener("input", function () { state.idea = this.value; });
+    $("goBtn").addEventListener("click", function () { state.started = true; state.qi = 0; show("ask"); });
+    renderNav();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
